@@ -49,11 +49,15 @@ RCT_EXPORT_METHOD(getDeviceMotionData:(RCTResponseSenderBlock) cb) {
   double gravity_x = self->_motionManager.deviceMotion.gravity.x;
   double gravity_y = self->_motionManager.deviceMotion.gravity.y;
   double gravity_z = self->_motionManager.deviceMotion.gravity.z;
+  double attitude_roll = self->_motionManager.deviceMotion.attitude.roll;
+  double attitude_pitch = self->_motionManager.deviceMotion.attitude.pitch;
+  double attitude_yaw = self->_motionManager.deviceMotion.attitude.yaw;
   double userAcceleration_x = self->_motionManager.deviceMotion.userAcceleration.x;
   double userAcceleration_y = self->_motionManager.deviceMotion.userAcceleration.y;
   double userAcceleration_z = self->_motionManager.deviceMotion.userAcceleration.z;
 
   NSLog(@"getDeviceMotionData (gravity): %f, %f, %f", gravity_x, gravity_y, gravity_z);
+  NSLog(@"getDeviceMotionData (attitude): %f, %f, %f", attitude_roll, attitude_pitch, attitude_yaw);
   NSLog(@"getDeviceMotionData (userAcceleration): %f, %f, %f", userAcceleration_x, userAcceleration_y, userAcceleration_z);
 
   cb(@[[NSNull null], @{
@@ -61,6 +65,11 @@ RCT_EXPORT_METHOD(getDeviceMotionData:(RCTResponseSenderBlock) cb) {
         @"x" : [NSNumber numberWithDouble:gravity_x],
         @"y" : [NSNumber numberWithDouble:gravity_y],
         @"z" : [NSNumber numberWithDouble:gravity_z]
+      },
+    @"attitude": @{
+        @"roll" : [NSNumber numberWithDouble:attitude_roll],
+        @"pitch" : [NSNumber numberWithDouble:attitude_pitch],
+        @"yaw" : [NSNumber numberWithDouble:attitude_yaw]
       },
     @"userAcceleration": @{
         @"x" : [NSNumber numberWithDouble:userAcceleration_x],
@@ -72,7 +81,7 @@ RCT_EXPORT_METHOD(getDeviceMotionData:(RCTResponseSenderBlock) cb) {
 }
 
 RCT_EXPORT_METHOD(startDeviceMotionUpdates) {
-  NSLog(@"startMagnetometerUpdates");
+  NSLog(@"startDeviceMotionUpdates");
   [self->_motionManager startDeviceMotionUpdates];
 
   /* Receive the DeviceMotion data on this block */
@@ -82,10 +91,14 @@ RCT_EXPORT_METHOD(startDeviceMotionUpdates) {
     double gravity_x = motionData.gravity.x;
     double gravity_y = motionData.gravity.y;
     double gravity_z = motionData.gravity.z;
+    double attitude_roll = motionData.attitude.roll;
+    double attitude_pitch = motionData.attitude.pitch;
+    double attitude_yaw = motionData.attitude.yaw;
     double userAcceleration_x = motionData.userAcceleration.x;
     double userAcceleration_y = motionData.userAcceleration.y;
     double userAcceleration_z = motionData.userAcceleration.z;
     NSLog(@"startDeviceMotionUpdates (gravity): %f, %f, %f", gravity_x, gravity_y, gravity_z);
+    NSLog(@"startDeviceMotionUpdates (attitude): %f, %f, %f", attitude_roll, attitude_pitch, attitude_yaw);
     NSLog(@"startDeviceMotionUpdates (userAcceleration): %f, %f, %f", userAcceleration_x, userAcceleration_y, userAcceleration_z);
 
     [self.bridge.eventDispatcher sendDeviceEventWithName:@"MotionData" body:@{
@@ -93,6 +106,11 @@ RCT_EXPORT_METHOD(startDeviceMotionUpdates) {
                                                                                   @"x" : [NSNumber numberWithDouble:gravity_x],
                                                                                   @"y" : [NSNumber numberWithDouble:gravity_y],
                                                                                   @"z" : [NSNumber numberWithDouble:gravity_z]
+                                                                                },
+                                                                                @"attitude": @{
+                                                                                  @"roll" : [NSNumber numberWithDouble:attitude_roll],
+                                                                                  @"pitch" : [NSNumber numberWithDouble:attitude_pitch],
+                                                                                  @"yaw" : [NSNumber numberWithDouble:attitude_yaw]
                                                                                 },
                                                                                 @"userAcceleration": @{
                                                                                   @"x" : [NSNumber numberWithDouble:userAcceleration_x],

@@ -1,6 +1,6 @@
 # react-native-motion-manager
 
-CMMotionManager wrapper for react-native, exposing Accelerometer, Gyroscope, Magnetometer, and DeviceMotion.
+CMMotionManager wrapper for react-native, exposing Accelerometer, Gyroscope, Magnetometer, and DeviceMotion(Gravity, User Acceleration and Attitude).
 
 ### Add it to your project
 
@@ -81,6 +81,9 @@ DeviceEventEmitter.addListener('MotionData', function (data) {
   * data.gravity.x
   * data.gravity.y
   * data.gravity.z
+  * data.attitude.roll
+  * data.attitude.pitch
+  * data.attitude.yaw
   * data.userAcceleration.x
   * data.userAcceleration.y
   * data.userAcceleration.z
