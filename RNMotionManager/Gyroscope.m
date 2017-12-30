@@ -56,7 +56,8 @@ RCT_EXPORT_METHOD(getGyroData:(RCTResponseSenderBlock) cb) {
     double x = self->_motionManager.gyroData.rotationRate.x;
     double y = self->_motionManager.gyroData.rotationRate.y;
     double z = self->_motionManager.gyroData.rotationRate.z;
-    double timestamp = self->_motionManager.gyroData.timestamp;
+    // double timestamp = self->_motionManager.gyroData.timestamp;
+    double timestamp = [[NSDate date] timeIntervalSince1970];
 
     NSLog(@"getGyroData: %f, %f, %f, %f", x, y, z, timestamp);
 
